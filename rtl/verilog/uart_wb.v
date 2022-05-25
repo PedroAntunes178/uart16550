@@ -128,18 +128,16 @@
 //
 //
 
-// UART core WISHBONE interface 
+// UART core WISHBONE interface
 //
 // Author: Jacob Gorban   (jacob.gorban@flextronicssemi.com)
 // Company: Flextronics Semiconductor
 //
 
-// synopsys translate_off
-`include "timescale.v"
-// synopsys translate_on
+`timescale 1ns/1ps
 `include "uart_defines.v"
- 
-module uart_wb (clk, wb_rst_i, 
+
+module uart_wb (clk, wb_rst_i,
 	wb_we_i, wb_stb_i, wb_cyc_i, wb_ack_o, wb_adr_i,
 	wb_adr_int, wb_dat_i, wb_dat_o, wb_dat8_i, wb_dat8_o, wb_dat32_o, wb_sel_i,
 	we_o, re_o // Write and read enable output for the core
@@ -147,7 +145,7 @@ module uart_wb (clk, wb_rst_i,
 
 input 		  clk;
 
-// WISHBONE interface	
+// WISHBONE interface
 input 		  wb_rst_i;
 input 		  wb_we_i;
 input 		  wb_stb_i;
@@ -156,13 +154,13 @@ input [3:0]   wb_sel_i;
 input [`UART_ADDR_WIDTH-1:0] 	wb_adr_i; //WISHBONE address line
 
 `ifdef DATA_BUS_WIDTH_8
-input [7:0]  wb_dat_i; //input WISHBONE bus 
+input [7:0]  wb_dat_i; //input WISHBONE bus
 output [7:0] wb_dat_o;
 reg [7:0] 	 wb_dat_o;
 wire [7:0] 	 wb_dat_i;
 reg [7:0] 	 wb_dat_is;
 `else // for 32 data bus mode
-input [31:0]  wb_dat_i; //input WISHBONE bus 
+input [31:0]  wb_dat_i; //input WISHBONE bus
 output [31:0] wb_dat_o;
 reg [31:0] 	  wb_dat_o;
 wire [31:0]   wb_dat_i;
@@ -221,8 +219,8 @@ always  @(posedge clk or posedge wb_rst_i)
 			end
 		endcase
 
-assign we_o =  wb_we_is & wb_stb_is & wb_cyc_is & wre ; //WE for registers	
-assign re_o = ~wb_we_is & wb_stb_is & wb_cyc_is & wre ; //RE for registers	
+assign we_o =  wb_we_is & wb_stb_is & wb_cyc_is & wre ; //WE for registers
+assign re_o = ~wb_we_is & wb_stb_is & wb_cyc_is & wre ; //RE for registers
 
 // Sample input signals
 always  @(posedge clk or posedge wb_rst_i)
@@ -305,13 +303,3 @@ assign wb_adr_int = {wb_adr_is[`UART_ADDR_WIDTH-1:2], wb_adr_int_lsb};
 `endif // !`ifdef DATA_BUS_WIDTH_8
 
 endmodule
-
-
-
-
-
-
-
-
-
-

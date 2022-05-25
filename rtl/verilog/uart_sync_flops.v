@@ -64,8 +64,7 @@
 // $Log: not supported by cvs2svn $
 //
 
-
-`include "timescale.v"
+`timescale 1ns/1ps
 
 
 module uart_sync_flops
@@ -105,7 +104,7 @@ begin
     if (rst_i)
         flop_0 <= #Tp {width{init_value}};
     else
-        flop_0 <= #Tp async_dat_i;    
+        flop_0 <= #Tp async_dat_i;
 end
 
 // second stage
@@ -116,7 +115,7 @@ begin
     else if (stage1_rst_i)
         sync_dat_o <= #Tp {width{init_value}};
     else if (stage1_clk_en_i)
-        sync_dat_o <= #Tp flop_0;       
+        sync_dat_o <= #Tp flop_0;
 end
 
 endmodule

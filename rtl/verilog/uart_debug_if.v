@@ -80,17 +80,15 @@
 // committed the debug interface file
 //
 
-// synopsys translate_off
-`include "timescale.v"
-// synopsys translate_on
+`timescale 1ns/1ps
 
 `include "uart_defines.v"
 
 module uart_debug_if (/*AUTOARG*/
 // Outputs
-wb_dat32_o, 
+wb_dat32_o,
 // Inputs
-wb_adr_i, ier, iir, fcr, mcr, lcr, msr, 
+wb_adr_i, ier, iir, fcr, mcr, lcr, msr,
 lsr, rf_count, tf_count, tstate, rstate
 ) ;
 
@@ -123,4 +121,3 @@ always @(/*AUTOSENSE*/fcr or ier or iir or lcr or lsr or mcr or msr
 	endcase // case(wb_adr_i)
 
 endmodule // uart_debug_if
-
