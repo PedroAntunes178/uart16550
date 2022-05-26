@@ -239,9 +239,4 @@
 `define VERBOSE_LINE_STATUS 0   // Details about the lsr (line status register)
 `define FAST_TEST   1           // 64/1024 packets are sent
 
-
-
-
-
-
-
+`define LITLE_ENDIAN 1
