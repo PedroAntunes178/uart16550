@@ -215,7 +215,7 @@ always  @(posedge clk or posedge wb_rst_i)
 			2,3: begin
 				wb_ack_o <= #1 0;
 				wbstate <= #1 0;
-				wre <= #1 0;
+				wre <= #1 1;
 			end
 		endcase
 
