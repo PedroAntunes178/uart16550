@@ -346,8 +346,8 @@ assign 									dlab = lcr[`UART_LC_DL];
 assign 									loopback = mcr[4];
 
 // assign modem outputs
-assign 									rts_pad_o = mcr[`UART_MC_RTS];
-assign 									dtr_pad_o = mcr[`UART_MC_DTR];
+assign 									rts_pad_o = ~mcr[`UART_MC_RTS];
+assign 									dtr_pad_o = ~mcr[`UART_MC_DTR];
 
 // Interrupt signals
 wire 										rls_int;  // receiver line status interrupt
@@ -582,7 +582,7 @@ begin
 	else begin
 		msr[`UART_MS_DDCD:`UART_MS_DCTS] <= #1 msi_reset ? 4'b0 :
 			msr[`UART_MS_DDCD:`UART_MS_DCTS] | ({dcd, ri, dsr, cts} ^ delayed_modem_signals[3:0]);
-		msr[`UART_MS_CDCD:`UART_MS_CCTS] <= #1 {dcd_c, ri_c, dsr_c, cts_c};
+		msr[`UART_MS_CDCD:`UART_MS_CCTS] <= #1 {~dcd_c, ~ri_c, ~dsr_c, ~cts_c};
 		delayed_modem_signals[3:0] <= #1 {dcd, ri, dsr, cts};
 	end
 end
